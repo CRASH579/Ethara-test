@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Employees } from "@/views/Employees";
-import { Attendence } from "./views/Attendence";
+import { Attendance } from "./views/Attendance";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Employees/>} />
-        <Route path="/about" element={<Attendence />}/>
+        <Route path="/attendance" element={<Attendance />}/>
       </Routes>
       <footer className="fixed bottom-0 left-0 w-full text-center py-1 text-sm text-muted bg-surface">
         &copy; {new Date().getFullYear()} Made by Utkarsh jain - utkarsh57917@gmail.com

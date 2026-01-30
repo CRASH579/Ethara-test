@@ -11,7 +11,7 @@ import {
 
 const NAV_LINKS = [
   { path: "/", label: "Employees", icon: House },
-  { path: "/attendence", label: "Attendence", icon: MapPinPen },
+  { path: "/attendance", label: "Attendance", icon: MapPinPen },
 ];
 const updateBubble = (
   nav: HTMLElement | null,
@@ -138,17 +138,7 @@ export const Navbar = () => {
               );
             })}
 
-            <button
-              onClick={() => setDarkMode((prev) => !prev)}
-              className="relative z-10 mb-6"
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? (
-                <Sun className="text-yellow-300" size={22} />
-              ) : (
-                <Moon className="text-blue-300" size={22} />
-              )}
-            </button>
+            
           </nav>
         )}
       </div>

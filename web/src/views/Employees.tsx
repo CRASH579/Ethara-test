@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api } from "@/api/client"
+import { api } from "@/api/client";
 import type { Employee } from "@/api/employee";
 
 type EmployeeForm = {
@@ -9,9 +9,7 @@ type EmployeeForm = {
   department: string;
 };
 
-
 export const Employees = () => {
-  
   const [form, setForm] = useState<EmployeeForm>({
     empId: 0,
     fullName: "",
@@ -34,7 +32,7 @@ export const Employees = () => {
       setLoading(false);
     }
   };
-  
+
   // Fetch employees on component mount
   useEffect(() => {
     fetchEmployees();
@@ -59,7 +57,7 @@ export const Employees = () => {
   };
 
   const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault() 
+    e.preventDefault();
     const validationError = validate();
     if (validationError) {
       setError(validationError);
@@ -77,22 +75,20 @@ export const Employees = () => {
         department: form.department,
       });
 
-    setEmployees(prev => [...prev, res.data])
+      setEmployees((prev) => [...prev, res.data]);
 
-    setForm({
-      empId: 0,
-      fullName: "",
-      email: "",
-      department: "",
-    })
-
+      setForm({
+        empId: 0,
+        fullName: "",
+        email: "",
+        department: "",
+      });
     } catch (err) {
       setError("Failed to add employee. Please try again.");
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <section className="flex flex-col justify-center mx-10 my-22 items-center text-center gap-6 max-w-5xl">
@@ -109,7 +105,7 @@ export const Employees = () => {
           type="text"
           onChange={handleChange}
           placeholder="Employee ID"
-          className="w-full rounded-full border border-surface-2 px-3 py-2 text-md
+          className="w-full rounded-full border border-surface-2 px-4 py-3 text-md
                focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
         />
         <input
@@ -118,7 +114,7 @@ export const Employees = () => {
           type="text"
           onChange={handleChange}
           placeholder="Full Name"
-          className="w-full rounded-full border border-surface-2 px-3 py-2 text-md
+          className="w-full rounded-full border border-surface-2 px-4 py-3 text-md
                focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
         />
         <input
@@ -127,7 +123,7 @@ export const Employees = () => {
           type="text"
           onChange={handleChange}
           placeholder="Email"
-          className="w-full rounded-full border border-surface-2 px-3 py-2 text-md
+          className="w-full rounded-full border border-surface-2 px-4 py-3 text-md
                focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
         />
         <input
@@ -136,14 +132,14 @@ export const Employees = () => {
           type="text"
           onChange={handleChange}
           placeholder="Department"
-          className="w-full rounded-full border border-surface-2 px-3 py-2 text-md
+          className="w-full rounded-full border border-surface-2 px-4 py-3 text-md
                focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
         />
         {error && <p className="col-span-full text-sm text-red-600">{error}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full py-4 text-xl bg-linear-to-b from-text to-brand text-light "
+          className="w-full rounded-full font-semibold py-4 text-xl bg-linear-to-b from-text to-brand text-light "
         >
           {loading ? "Adding..." : "Add Employee"}
         </button>
@@ -168,7 +164,7 @@ export const Employees = () => {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-muted bg-surface">
+          <tbody className="divide-y divide-surface-2/50 bg-surface">
             {employees.map((emp) => (
               <tr key={emp.id} className="hover:bg-surface-2">
                 <td className="px-4 py-3">{emp.empId}</td>
