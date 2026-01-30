@@ -12,7 +12,7 @@ function App() {
         <Route path="/about" element={<Attendence />}/>
       </Routes>
       <footer className="fixed bottom-0 left-0 w-full text-center py-1 text-sm text-muted bg-surface">
-        &copy; {new Date().getFullYear()} Geonotes. All rights reserved.
+        &copy; {new Date().getFullYear()} Made by Utkarsh jain - utkarsh57917@gmail.com
       </footer>
     </div>
   );

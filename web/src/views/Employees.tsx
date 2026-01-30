@@ -1,10 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "@/api/client"
 import type { Employee } from "@/api/employee";
+
+type EmployeeForm = {
+  empId: number;
+  fullName: string;
+  email: string;
+  department: string;
+};
+
+
 export const Employees = () => {
-  const [form, setForm] = useState<Employee[]>([])
+  
+  const [form, setForm] = useState<EmployeeForm>({
+    empId: 0,
+    fullName: "",
+    email: "",
+    department: "",
+  });
+
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const fetchEmployees = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get<Employee[]>("/employees/");
+      setEmployees(res.data);
+    } catch (err) {
+      setError("Failed to fetch employees. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Fetch employees on component mount
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,13 +71,12 @@ export const Employees = () => {
       setError(null);
 
       const res = await api.post<Employee>("/employees/", {
-      empId: Number(form.empId),
-      full_name: form.fullName,
-      email: form.email,
-      department: form.department,
-    })
+        empId: Number(form.empId),
+        fullName: form.fullName,
+        email: form.email,
+        department: form.department,
+      });
 
-    // Optimistic update
     setEmployees(prev => [...prev, res.data])
 
     setForm({
@@ -59,12 +92,6 @@ export const Employees = () => {
       setLoading(false);
     }
   };
-
-  const employees = [
-    { empid: 3, full_name: "3243", email: "ebvef", department: "fwbdg" },
-    { empid: 3, full_name: "3243", email: "ebvef", department: "fwbdg" },
-  ];
-
   
 
   return (
@@ -143,9 +170,9 @@ export const Employees = () => {
 
           <tbody className="divide-y divide-muted bg-surface">
             {employees.map((emp) => (
-              <tr key={emp.empid} className="hover:bg-surface-2">
-                <td className="px-4 py-3">{emp.empid}</td>
-                <td className="px-4 py-3 font-medium">{emp.full_name}</td>
+              <tr key={emp.id} className="hover:bg-surface-2">
+                <td className="px-4 py-3">{emp.empId}</td>
+                <td className="px-4 py-3 font-medium">{emp.fullName}</td>
                 <td className="px-4 py-3">{emp.email}</td>
                 <td className="px-4 py-3">{emp.department}</td>
               </tr>
