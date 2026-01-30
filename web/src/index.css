@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* -------------------------
+   THEME TOKENS (Tailwind v4)
+   ------------------------- */
+@theme {
+  /* Override default sans font */
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand */
+  --color-brand: #00feb5;
+  --color-brand-text: #94e2d5;
+  --color-pill: #1e1e2e;
+
+  /* Dark-first palette */
+  --color-bg: #11111b;
+  --color-surface: #181825;
+  --color-surface-2: #333353;
+  --color-text: #cdd6f4;
+  --color-muted: #a6adc8;
+  --color-border: #b4befe;
+  --color-light: #111111;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-normal tracking-tight text-text;
+  }
+  h1 {
+    @apply font-semibold text-5xl tracking-tight text-text;
+  }
+  h2 {
+    @apply font-semibold text-4xl tracking-tight text-text;
+  }
+
+  h3{
+    @apply font-semibold text-2xl tracking-tight text-text;
+  }
+
+  p {
+    @apply text-muted leading-relaxed;
+  }
+
+
+  ::selection {
+    background-color: var(--color-brand);
+    color: black;
+  }
+}
+
+/* -------------------------
+   BUBBLE NAV - CSS Variables driven
+   ------------------------- */
+.bubble-nav {
+  --bubble-x: 0px;
+  --bubble-y: 0px;
+  --bubble-w: 0px;
+  --bubble-h: 0px;
+  --hover-x: 0px;
+  --hover-y: 0px;
+  --hover-w: 100%;
+  --hover-h: 100%;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 9999px;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+}
+
+.bubble--active {
+  left: var(--bubble-x);
+  top: var(--bubble-y);
+  width: var(--bubble-w);
+  height: var(--bubble-h);
+  z-index: 2;
+  background: linear-gradient(to bottom, var(--color-text), var(--color-brand));
+}
+
+
+.bubble--hover {
+  left: var(--hover-x);
+  top: var(--hover-y);
+  width: var(--hover-w);
+  height: var(--hover-h);
+  z-index: 1;
+  background: linear-gradient(to bottom, var(--color-surface-2), var(--color-surface));
+}
