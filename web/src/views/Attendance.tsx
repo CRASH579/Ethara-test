@@ -3,12 +3,6 @@ import { api } from "@/api/client";
 import type { Employee } from "@/api/employee";
 import { Filter, ChevronUp, ChevronDown } from "lucide-react";
 
-type EmployeeForm = {
-  empId: number;
-  fullName: string;
-  email: string;
-  department: string;
-};
 export type Attendance = {
   id: number;
   employee: number;
@@ -213,7 +207,7 @@ export const Attendance = () => {
   const isEmpty = attendance.length === 0 && !loading && filters.empId;
 
   return (
-    <section className="flex flex-col justify-center mx-10 my-22 items-center text-center gap-6 max-w-5xl">
+    <section className="flex flex-col justify-center mx-10 my-22 px-4 sm:px-6 lg:px-8 items-center text-center gap-6 max-w-5xl">
       <div className="flex gap-2 items-center">
         <h1 className="mt-10">Ethara HRMS</h1>
       </div>

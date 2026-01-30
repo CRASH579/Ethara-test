@@ -203,7 +203,7 @@ export const Employees = () => {
   const isEmpty = employees.length === 0 && !loading;
 
   return (
-    <section className="flex flex-col justify-center mx-10 my-22 items-center text-center gap-6 max-w-5xl">
+    <section className="flex flex-col justify-center mx-10 my-22 px-4 sm:px-6 lg:px-8 items-center text-center gap-6 max-w-5xl">
       <div className="flex gap-2 items-center">
         <h1 className="mt-10">Ethara HRMS</h1>
       </div>
@@ -254,7 +254,13 @@ export const Employees = () => {
           disabled={loading}
           className="w-full rounded-full font-semibold py-4 text-xl bg-linear-to-b from-text to-brand text-light disabled:opacity-50"
         >
-          {loading ? (editingId ? "Updating..." : "Adding...") : editingId ? "Update Employee" : "Add Employee"}
+          {loading
+            ? editingId
+              ? "Updating..."
+              : "Adding..."
+            : editingId
+              ? "Update Employee"
+              : "Add Employee"}
         </button>
         {editingId && (
           <button
@@ -322,7 +328,11 @@ export const Employees = () => {
                   <td className="px-4 py-3">{emp.email}</td>
                   <td className="px-4 py-3">{emp.department}</td>
                   <td className="px-4 py-3 relative">
-                    <div ref={(el) => { menuRefs.current[emp.id] = el; }}>
+                    <div
+                      ref={(el) => {
+                        menuRefs.current[emp.id] = el;
+                      }}
+                    >
                       <button
                         onClick={() =>
                           setOpenMenuId(openMenuId === emp.id ? null : emp.id)
