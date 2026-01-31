@@ -3,6 +3,9 @@ import { api } from "@/api/client";
 import type { Employee } from "@/api/employee";
 import { Filter, ChevronUp, ChevronDown } from "lucide-react";
 
+// Shared input style for consistent appearance across views
+const inputClass = "w-full rounded-full border border-surface-2 bg-bg px-4 py-3 text-md focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand text-text";
+
 export type Attendance = {
   id: number;
   employee: number;
@@ -207,7 +210,7 @@ export const Attendance = () => {
   const isEmpty = attendance.length === 0 && !loading && filters.empId;
 
   return (
-    <section className="flex flex-col justify-center mx-10 my-22 px-4 sm:px-6 lg:px-8 items-center text-center gap-6 max-w-5xl">
+    <section className="flex flex-col mt-20 justify-center w-full max-w-5xl mx-auto my-6 px-4 sm:px-6 lg:px-8 items-center text-center gap-6">
       <div className="flex gap-2 items-center">
         <h1 className="mt-10">Ethara HRMS</h1>
       </div>
@@ -220,10 +223,7 @@ export const Attendance = () => {
           onChange={(e) =>
             setForm((prev) => ({ ...prev, empId: e.target.value }))
           }
-          className={`rounded-full border border-surface-2 bg-bg px-3 py-2
-    focus:border-brand outline-none focus:ring-1 focus:ring-brand
-    ${!form.empId ? "text-muted" : "text-text"}
-  `}
+          className={`${inputClass} ${!form.empId ? "text-muted" : "text-text"}`}
         >
           <option value="" disabled>
             Select employee
@@ -242,8 +242,7 @@ export const Attendance = () => {
           onChange={(e) =>
             setForm((prev) => ({ ...prev, date: e.target.value }))
           }
-          className="w-full rounded-full text-text border border-surface-2 bg-bg px-4 py-4 text-md
-               focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+          className={inputClass}
         />
 
         <select
@@ -254,8 +253,7 @@ export const Attendance = () => {
               status: e.target.value as "PRESENT" | "ABSENT",
             }))
           }
-          className="w-full rounded-full border border-surface-2 px-4 bg-bg py-4 text-md
-               focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+          className={inputClass}
         >
           <option value="PRESENT">Present</option>
           <option value="ABSENT">Absent</option>
@@ -280,7 +278,7 @@ export const Attendance = () => {
           </button>
 
           {showFilters && (
-            <div className="absolute top-full mt-2 left-0 right-0 bg-surface border border-surface-2 rounded-lg shadow-lg p-4 z-20 grid grid-cols-2 gap-4 w-96">
+            <div className="absolute top-full mt-2 left-2 right-2 sm:left-0 sm:right-0 bg-surface border border-surface-2 rounded-lg shadow-lg p-4 z-20 grid grid-cols-2 gap-4 w-auto max-w-96">
               <div>
                 <label className="block text-sm font-medium text-text mb-2">
                   Employee
@@ -290,8 +288,7 @@ export const Attendance = () => {
                   onChange={(e) =>
                     setFilters((prev) => ({ ...prev, empId: e.target.value }))
                   }
-                  className="w-full rounded-full border border-surface-2 bg-bg px-3 py-2 text-sm
-                    focus:border-brand outline-none focus:ring-1 focus:ring-brand text-text"
+                  className={`${inputClass} text-sm`}
                 >
                   <option value="">All</option>
                   {employees.map((emp) => (
@@ -316,8 +313,7 @@ export const Attendance = () => {
                       department: e.target.value,
                     }))
                   }
-                  className="w-full rounded-full border border-surface-2 bg-bg px-3 py-2 text-sm
-                    focus:border-brand outline-none focus:ring-1 focus:ring-brand"
+                  className={`${inputClass} text-sm`}
                 />
               </div>
 
@@ -334,8 +330,7 @@ export const Attendance = () => {
                       dateFrom: e.target.value,
                     }))
                   }
-                  className="w-full rounded-full border border-surface-2 bg-bg px-3 py-2 text-sm
-                    focus:border-brand outline-none focus:ring-1 focus:ring-brand"
+                  className={`${inputClass} text-sm`}
                 />
               </div>
 
@@ -352,8 +347,7 @@ export const Attendance = () => {
                       dateTo: e.target.value,
                     }))
                   }
-                  className="w-full rounded-full border border-surface-2 bg-bg px-3 py-2 text-sm
-                    focus:border-brand outline-none focus:ring-1 focus:ring-brand"
+                  className={`${inputClass} text-sm`}
                 />
               </div>
 
@@ -366,8 +360,7 @@ export const Attendance = () => {
                   onChange={(e) =>
                     setFilters((prev) => ({ ...prev, status: e.target.value }))
                   }
-                  className="w-full rounded-full border border-surface-2 bg-bg px-3 py-2 text-sm
-                    focus:border-brand outline-none focus:ring-1 focus:ring-brand text-text"
+                  className={`${inputClass} text-sm`}
                 >
                   <option value="">All</option>
                   <option value="PRESENT">Present</option>
@@ -419,8 +412,9 @@ export const Attendance = () => {
               </span>
             </div>
           )}
-          <div className="mt-6 overflow-hidden rounded-2xl bg-surface border border-surface w-full">
-            <table className="min-w-full divide-y divide-brand/50 text-sm">
+          <div className="mt-6 w-full px-4 sm:px-6">
+            <div className="overflow-x-auto rounded-2xl bg-surface border border-surface">
+              <table className="min-w-full divide-y divide-brand/50 text-sm">
               <thead className="bg-surface-2">
                 <tr>
                   <th
@@ -490,6 +484,7 @@ export const Attendance = () => {
                 })}
               </tbody>
             </table>
+            </div>
           </div>
         </>
       )}

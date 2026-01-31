@@ -21,6 +21,9 @@ export const Employees = () => {
     department: "",
   });
 
+  // Shared input style for consistent appearance across views
+  const inputClass = "w-full rounded-full border border-surface-2 px-4 py-3 text-md focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand bg-bg";
+
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -207,7 +210,7 @@ export const Employees = () => {
   const isEmpty = employees.length === 0 && !loading;
 
   return (
-    <section className="flex flex-col justify-center mx-10 my-22 px-4 sm:px-6 lg:px-8 items-center text-center gap-6 max-w-5xl">
+    <section className="flex flex-col justify-center mt-20 w-full max-w-5xl mx-auto my-6 px-4 sm:px-6 lg:px-8 items-center text-center gap-6">
       <div className="flex gap-2 items-center">
         <h1 className="mt-10">Ethara HRMS</h1>
       </div>
@@ -222,8 +225,7 @@ export const Employees = () => {
           onChange={handleChange}
           placeholder="Employee ID"
           disabled={editingId !== null}
-          className="w-full rounded-full border border-surface-2 px-4 py-4 text-md
-               focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand disabled:opacity-60"
+          className={`${inputClass} disabled:opacity-60`}
         />
         <input
           name="fullName"
@@ -231,8 +233,7 @@ export const Employees = () => {
           type="text"
           onChange={handleChange}
           placeholder="Full Name"
-          className="w-full rounded-full border border-surface-2 px-4 py-4 text-md
-               focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+          className={inputClass}
         />
         <input
           name="email"
@@ -240,8 +241,7 @@ export const Employees = () => {
           type="email"
           onChange={handleChange}
           placeholder="Email"
-          className="w-full rounded-full border border-surface-2 px-4 py-4 text-md
-               focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+          className={inputClass}
         />
         <input
           name="department"
@@ -249,8 +249,7 @@ export const Employees = () => {
           type="text"
           onChange={handleChange}
           placeholder="Department"
-          className="w-full rounded-full border border-surface-2 px-4 py-4 text-md
-               focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+          className={inputClass}
         />
         {error && <p className="col-span-full text-sm text-red-600">{error}</p>}
         <button
@@ -290,8 +289,8 @@ export const Employees = () => {
       )}
 
       {!isEmpty && (
-        <div className="mt-6 rounded-2xl bg-surface border border-surface w-full" style={{ overflow: "visible" }}>
-          <div style={{ borderRadius: "1rem", overflow: "hidden" }}>
+        <div className="mt-6 w-full px-4 sm:px-6">
+          <div className="overflow-x-auto rounded-2xl bg-surface border border-surface">
             <table className="min-w-full divide-y divide-brand/50 text-sm">
             <thead className="bg-surface-2">
               <tr>
