@@ -1,0 +1,12 @@
+services:
+  backend:
+    build: .
+    container_name: ethara-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/projects/data
+    restart: always
+
+volumes:
+  sqlite_data:

@@ -3,10 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import {
   House,
   MapPinPen,
-  Moon,
   SquareChevronDown,
   SquareEqual,
-  Sun,
 } from "lucide-react";
 
 const NAV_LINKS = [
@@ -39,7 +37,7 @@ const initHoverBubble = (nav: HTMLElement | null) => {
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  
   const desktopNav = useRef<HTMLElement>(null);
   const mobileNav = useRef<HTMLElement>(null);
   const location = useLocation();
