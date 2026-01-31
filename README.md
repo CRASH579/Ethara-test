@@ -1,6 +1,6 @@
 # Ethara HRMS
 
-A modern Human Resource Management System (HRMS) built for efficient employee and attendance management.
+A modern HRMS test app that I created for this assessment. I had a VPS and a domain (geonotes.in for my personal projects). I used the design language and the nav that I am using thats why this might look a bit different. but else the whole UI and backend is made by me with minimal AI use.
 
 ## Project Overview
 
