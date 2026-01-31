@@ -272,7 +272,7 @@ export const Attendance = () => {
           <button
             type="button"
             onClick={() => setShowFilters(!showFilters)}
-            className="w-14 h-14 rounded-full bg-linear-to-b from-surface to-surface-2 text-text p-0 flex items-center justify-center hover:from-surface-2"
+            className="w-14 h-14 rounded-full bg-linear-to-b from-surface to-surface-2 text-brand p-0 flex items-center justify-center hover:from-surface-2"
           >
             <Filter size={20} />
           </button>
