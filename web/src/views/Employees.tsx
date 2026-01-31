@@ -28,7 +28,7 @@ export const Employees = () => {
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
   const [openMenuId, setOpenMenuId] = useState<number | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const menuRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
+  const menuRefs = useRef<{ [key: number]: HTMLElement | null }>({});
 
   const fetchEmployees = async () => {
     try {
@@ -52,7 +52,11 @@ export const Employees = () => {
       if (openMenuId !== null) {
         const ref = menuRefs.current[openMenuId];
         if (ref && !ref.contains(event.target as Node)) {
-          setOpenMenuId(null);
+          // Check if click is on the dropdown menu itself
+          const target = event.target as HTMLElement;
+          if (!target.closest('[class*="fixed"]')) {
+            setOpenMenuId(null);
+          }
         }
       }
     };
@@ -286,8 +290,9 @@ export const Employees = () => {
       )}
 
       {!isEmpty && (
-        <div className="mt-6 overflow-hidden rounded-2xl bg-surface border border-surface w-full">
-          <table className="min-w-full divide-y divide-brand/50 text-sm">
+        <div className="mt-6 rounded-2xl bg-surface border border-surface w-full" style={{ overflow: "visible" }}>
+          <div style={{ borderRadius: "1rem", overflow: "hidden" }}>
+            <table className="min-w-full divide-y divide-brand/50 text-sm">
             <thead className="bg-surface-2">
               <tr>
                 <th
@@ -328,42 +333,50 @@ export const Employees = () => {
                   <td className="px-4 py-3">{emp.email}</td>
                   <td className="px-4 py-3">{emp.department}</td>
                   <td className="px-4 py-3 relative">
-                    <div
+                    <button
                       ref={(el) => {
                         menuRefs.current[emp.id] = el;
                       }}
+                      onClick={() =>
+                        setOpenMenuId(openMenuId === emp.id ? null : emp.id)
+                      }
+                      className="p-1 hover:bg-surface-2/50 rounded inline-flex"
+                      aria-label="Actions"
                     >
-                      <button
-                        onClick={() =>
-                          setOpenMenuId(openMenuId === emp.id ? null : emp.id)
-                        }
-                        className="p-1 hover:bg-surface-2/50 rounded inline-flex"
-                        aria-label="Actions"
-                      >
-                        <MoreVertical size={18} />
-                      </button>
-                      {openMenuId === emp.id && (
-                        <div className="absolute right-0 mt-2 w-32 bg-surface border border-surface-2 rounded-lg shadow-lg z-10">
-                          <button
-                            onClick={() => handleEdit(emp)}
-                            className="block w-full text-left px-4 py-2 hover:bg-surface-2 text-sm text-text"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => handleDelete(emp.id)}
-                            className="block w-full text-left px-4 py-2 hover:bg-surface-2 text-sm text-red-400"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      )}
-                    </div>
+                      <MoreVertical size={18} />
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
+        </div>
+      )}
+
+      {openMenuId && menuRefs.current[openMenuId] && (
+        <div
+          className="fixed bg-surface border border-surface-2 rounded-lg shadow-lg ml-15 z-50 w-32"
+          style={{
+            top: (menuRefs.current[openMenuId] as HTMLElement)?.getBoundingClientRect().bottom + 8,
+            left: (menuRefs.current[openMenuId] as HTMLElement)?.getBoundingClientRect().right - 128,
+          }}
+        >
+          <button
+            onClick={() => {
+              const emp = employees.find(e => e.id === openMenuId);
+              if (emp) handleEdit(emp);
+            }}
+            className="block w-full text-left px-4 py-2 hover:bg-surface-2 text-sm text-text"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDelete(openMenuId)}
+            className="block w-full text-left px-4 py-2 hover:bg-surface-2 text-sm text-red-400"
+          >
+            Delete
+          </button>
         </div>
       )}
     </section>
